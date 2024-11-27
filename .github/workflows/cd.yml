@@ -2,6 +2,8 @@ name: 📦 CD
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   docker:
@@ -22,6 +24,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/sites-faciles:${{ env.GITHUB_REF_SLUG }}
+          tags: |
+            ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/sites-faciles:${{ env.GITHUB_REF_SLUG }}
+            latest
           cache-from: type=registry,ref=ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/sites-faciles:${{ env.GITHUB_REF_SLUG }}
           cache-to: type=inline
